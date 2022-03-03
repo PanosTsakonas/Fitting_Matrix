@@ -8,7 +8,7 @@ fs=150;
 
 
 %Uncomment the following when I am working from my Laptop
-I=importfile("%%%%SPECIFY THE DIRECTORY OF THE EXCEL FILE%%%%%%%%.xlsx","");
+I=importfile("%%%% SPECIFY THE DIRECTORY OF THE EXCEL FILE %%%%%%%%.xlsx","");
 
 b=input("Specify the digit you are working on: ");
 %1 for thumb, 2 for index etc.
@@ -49,7 +49,10 @@ for i=2:n
     t(i)=t(i-1)+1/fs;
 end
 
+%These are the frames for the DIP joint
 n3_1=50;
+
+%Time for DIP joint
 t3=zeros(1,n3_1);
 for i=2:n3_1
     t3(i)=t(i-1)+1/fs;
@@ -60,28 +63,13 @@ ta=zeros(1,nab);
 for i=2:nab
     ta(i)=ta(i-1)+1/fs;
 end
+
 %Identify the peaks of the signals
 [p1,n1]=findpeaks(th1,'MINPEAKPROMINENCE',4*pi/180);
 [p2,n2]=findpeaks(th2,'MINPEAKPROMINENCE',10*pi/180);
 [p3,n3]=findpeaks(th3,'MINPEAKPROMINENCE',13*pi/180);
-[pa,na]=findpeaks(-tha,'MINPEAKWIDTH',50);
+[pa,na]=findpeaks(-tha,'MINPEAKWIDTH',50); %For the abduction movement since the digit is moved towards the midline (smaller angles) the peaks are the found from the -tha matrix
  
-%Selection of 10 first peaks improving performance
-
-if length(n1)>=10
-    n1=n1(1:10);
-end
-if length(n2)>=10
-    n2=n2(1:10);
-end
-
-if length(n3)>=10
-    n3=n3(1:10);
-end
-
-if length(na)>=10
-    na=na(1:10);
-end
 
 %Specify the fitting equations
 fitfun1=fittype(@(a,b,c,x) a+c.*exp(-b.*x)); %Overdamped
@@ -116,7 +104,7 @@ f = waitbar(0,'1','Name','Curve fitting...',...
 
 setappdata(f,'canceling',0);
 
-%MCP Joint
+% MCP Joint
 for i=1:length(n1)-1
     
 % Update waitbar and message
@@ -126,7 +114,7 @@ if getappdata(f,'canceling')
     break
 end
       
-%Starting point for underdamped case
+% Starting point for underdamped case
 x0=[th1(n1(i)+n-1) 20 th1(n1(i))-th1(n1(i)+n-1) 0.2 10];
 [Fit,GoF]=fit(transpose(t),th1(n1(i):n1(i)+n-1),fitfun,'MaxFunEvals',10^6,'MaxIter',10^6,'StartPoint',x0,'ToLFun',10^-8);
 Ymcp(:,i)= Fit(t);
@@ -173,7 +161,7 @@ x01=[th2(n2(j)+n-1) 30 th2(n2(j))-th2(n2(j)+n-1)];
 [Fit2,GoF2]=fit(transpose(t),th2(n2(j):n2(j)+n-1),fitfun2,'MaxFunEvals',10^6,'MaxIter',10^6,'StartPoint',x01,'ToLFun',10^-8);
 GoF_rmse=min([GoF.rmse GoF1.rmse GoF2.rmse]);
 if GoF_rmse==GoF.rmse
-   % disp("Underdamped case");
+  
 Ypip(:,j)=Fit(t);
 coef=coeffvalues(Fit);
 Bpip(j)=2*Ipip*coef(2);
@@ -189,7 +177,7 @@ xlabel("Time (s)");
 ylabel("Angle (degrees)");
 title("PIP joint fit with RMSE: "+(GoF.rmse*180/pi)+" and R^2: "+GoF.rsquare);
 elseif GoF_rmse==GoF1.rmse
-    %disp("Overdamped Case");
+  
     Ypip(:,j)=Fit1(t);
 coef=coeffvalues(Fit1);
 b=coef(2);
@@ -206,7 +194,7 @@ xlabel("Time (s)");
 ylabel("Angle (degrees)");
 title("PIP joint fit with RMSE: "+(GoF1.rmse*180/pi)+" and R^2: "+GoF1.rsquare);
 else
-    %disp("Critically damped case");
+    
     Ypip(:,j)=Fit2(t);
     coef=coeffvalues(Fit2);
     Bpip(j)=2*Ipip*coef(2);
@@ -250,7 +238,7 @@ x01=[th3(n3(k)+n3_1-1) 20 th3(n3(k))-th3(n3(k)+n3_1-1)];
 GoF_rmse=min([GoF.rmse GoF1.rmse GoF2.rmse]);
 
 if GoF_rmse==GoF.rmse
-%disp("Underdamped Case");
+
 Ydip(:,k)=Fit(t3);
 coef=coeffvalues(Fit);
 Bdip(k)=2*Idip*coef(2);
@@ -266,7 +254,7 @@ xlabel("Time (s)");
 ylabel("Angle (degrees)");
 title("DIP joint fit with RMSE: "+(GoF.rmse*180/pi)+" and R^2: "+GoF.rsquare);
 elseif GoF_rmse==GoF1.rmse
-   % disp("Overdamped Case");
+   
     Ydip(:,k)=Fit1(t3);
 coef=coeffvalues(Fit1);
 b=coef(2);
@@ -283,7 +271,7 @@ xlabel("Time (s)");
 ylabel("Angle (degrees)");
 title("DIP joint fit with RMSE: "+(GoF1.rmse*180/pi)+" and R^2: "+GoF1.rsquare);
 else
-    %disp("Critically damped case");
+    
     Ydip(:,k)=Fit2(t3);
     coef=coeffvalues(Fit2);
     Bdip(k)=2*Idip*coef(2);
@@ -329,7 +317,7 @@ x01=[tha(na(m)+nab-1) 20 tha(na(m))-tha(na(m)+nab-1)];
 GoF_rmse=min([GoF.rmse GoF1.rmse GoF2.rmse]);
 
 if GoF_rmse==GoF.rmse
-    %disp("Lowest RMSE underdamped case");
+   
 Ya(:,m)=Fit(ta);
 coef=coeffvalues(Fit);
 Ba(m)=2*Ia*coef(2);
@@ -345,7 +333,7 @@ xlabel("Time (s)");
 ylabel("Angle (degrees)");
 title("Abduction movement fit with RMSE: "+(GoF.rmse*180/pi)+" and R^2: "+GoF.rsquare);
 elseif GoF_rmse==GoF1.rmse
-    %disp("Lowest RMSE overdamped case");
+    
         Ya(:,m)=Fit1(ta);
         coef=coeffvalues(Fit1);
         b=coef(2);
@@ -362,7 +350,7 @@ xlabel("Time (s)");
 ylabel("Angle (degrees)");
 title("Abduction movement fit with RMSE: "+(GoF1.rmse*180/pi)+" and R^2: "+GoF1.rsquare);
 else
-        %disp("Lowest RMSE critically damped case");
+       
         Ya(:,m)=Fit2(ta);
         coef=coeffvalues(Fit2);
         b=coef(2);
