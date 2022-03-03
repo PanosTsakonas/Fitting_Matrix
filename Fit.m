@@ -1,5 +1,5 @@
-%This function calculates the fitted parameters for the underdamped case of
-%the IBK model
+%This function calculates the fitted parameters of the MoCap data of the spring like motion of the digit segments based on the analytical solutions of the IBK model
+
 clc;
 close all;
 
@@ -7,7 +7,6 @@ close all;
 fs=150;
 
 
-%Uncomment the following when I am working from my Laptop
 I=importfile("%%%% SPECIFY THE DIRECTORY OF THE EXCEL FILE %%%%%%%%.xlsx","");
 
 b=input("Specify the digit you are working on: ");
@@ -37,7 +36,7 @@ th2=th2.*pi/180;
 th3=th3.*pi/180;
 tha=tha.*pi/180;
 
-%Specify the number of frames you want for flexion. 
+%Specify the number of frames you want for flexion of MCP and PIP joints. 
 n=50;
 
 %Specify the number of frames you want for abduction
@@ -49,22 +48,22 @@ for i=2:n
     t(i)=t(i-1)+1/fs;
 end
 
-%These are the frames for the DIP joint
+% Specify  the frames for the DIP joint
 n3_1=50;
 
-%Time for DIP joint
+% Time for DIP joint
 t3=zeros(1,n3_1);
 for i=2:n3_1
     t3(i)=t(i-1)+1/fs;
 end
 
-%Time for abduction trials
+% Time for abduction trials
 ta=zeros(1,nab);
 for i=2:nab
     ta(i)=ta(i-1)+1/fs;
 end
 
-%Identify the peaks of the signals
+% Identify the peaks of the signals. Chage the values where appropriate!
 [p1,n1]=findpeaks(th1,'MINPEAKPROMINENCE',4*pi/180);
 [p2,n2]=findpeaks(th2,'MINPEAKPROMINENCE',10*pi/180);
 [p3,n3]=findpeaks(th3,'MINPEAKPROMINENCE',13*pi/180);
