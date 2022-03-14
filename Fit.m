@@ -66,8 +66,12 @@ end
 [p1,n1]=findpeaks(th1,'MINPEAKPROMINENCE',4*pi/180);
 [p2,n2]=findpeaks(th2,'MINPEAKPROMINENCE',10*pi/180);
 [p3,n3]=findpeaks(th3,'MINPEAKPROMINENCE',13*pi/180);
+
+if in==3
+[pa,na]=findpeaks(tha,'MINPEAKWIDTH',15);
+else
 [pa,na]=findpeaks(-tha,'MINPEAKWIDTH',15);
- 
+ end
 
 %fitting equations
 fitfun1=fittype(@(a,b,c,x) a+c.*exp(-b.*x)); %Overdamped
