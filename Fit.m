@@ -62,13 +62,13 @@ ta=zeros(1,nab);
 for i=2:nab
     ta(i)=ta(i-1)+1/fs;
 end
-%Identify the peaks of the signals
+%Identify the peaks of the signals. This is quite important to identify otherwise the rest of the code will not give correct values.
 [p1,n1]=findpeaks(th1,'MINPEAKPROMINENCE',4*pi/180);
 [p2,n2]=findpeaks(th2,'MINPEAKPROMINENCE',10*pi/180);
 [p3,n3]=findpeaks(th3,'MINPEAKPROMINENCE',13*pi/180);
 
 if in==3
-[pa,na]=findpeaks(tha,'MINPEAKWIDTH',15);
+[pa,na]=findpeaks(tha,'MINPEAKPROMINENCE',0.2*pi/180);
 else
 [pa,na]=findpeaks(-tha,'MINPEAKWIDTH',15);
  end
