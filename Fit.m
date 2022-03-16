@@ -309,14 +309,14 @@ disp("Mean IP B: "+mean(Bpip)+" +/- "+std(Bpip));
 disp("Mean Abduction K: "+mean(Ka)+" +/- "+std(Ka));
 disp("Mean Abduction B: "+mean(Ba)+" +/- "+std(Ba));
 
-%Calculating the mean damping ratios
-zmcp=mean(Bmcp)/(2*Ipip*sqrt(mean(Kmcp)/Ipip));
-zip=mean(Bpip)/(2*Idip*sqrt(mean(Kpip)/Idip));
-za=mean(Ba)/(2*Ia*sqrt(Ka/Ia));
+%Calculating the damping ratios
+zmcp=Bmcp./(2*Ipip.*sqrt(Kmcp./Ipip));
+zip=(Bpip)./(2*Idip.*sqrt(Kpip./Idip));
+za=(Ba)./(2*Ia.*sqrt(Ka./Ia));
 
-disp("Damping ratio of MCP joint: "+zmcp);
-disp("Damping ratio of IP joint: "+zip);
-disp("Damping ratio of abduction: "+za);
+disp("Damping ratio of MCP joint: "+mean(zmcp));
+disp("Damping ratio of IP joint: "+mean(zip));
+disp("Damping ratio of abduction: "+mean(za));
 
 else %This is for digits index through little
 
@@ -651,13 +651,13 @@ disp("Mean Abduction K: "+mean(Ka)+" +/- "+std(Ka));
 disp("Mean Abduction B: "+mean(Ba)+" +/- "+std(Ba));
 
 %Calculating the damping ratios
-zmcp=mean(Bmcp)/(2*Imcp*sqrt(mean(Kmcp)/Imcp));
-zpip=mean(Bpip)/(2*Ipip*sqrt(mean(Kpip)/Ipip));
-zdip=mean(Bdip)/(2*Idip*sqrt(mean(Kdip)/Idip));
-za=mean(Ba)/(2*Ia*sqrt(mean(Ka)/Ia));
-disp("Dampring ratio of MCP joint: "+zmcp);
-disp("Dampring ratio of PIP joint: "+zpip);
-disp("Dampring ratio of DIP joint: "+zdip);
-disp("Dampring ratio of abduction: "+za);
+zmcp=Bmcp./(2*Imcp.*sqrt(Kmcp./Imcp));
+zpip=(Bpip)./(2*Ipip.*sqrt(Kpip./Ipip));
+zdip=(Bdip)./(2*Idip.*sqrt(Kdip./Idip));
+za=(Ba)./(2*Ia.*sqrt(Ka./Ia));
+disp("Dampring ratio of MCP joint: "+mean(zmcp));
+disp("Dampring ratio of PIP joint: "+mean(zpip));
+disp("Dampring ratio of DIP joint: "+mean(zdip));
+disp("Dampring ratio of abduction: "+mean(za));
 
 end
