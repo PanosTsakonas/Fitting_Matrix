@@ -26,7 +26,7 @@ where θeq and θ0 are the equilibrium and initial angle of the spring component
 
 Once rf is known then the parameters K and B can be determined. From the characteristic polynomial of the differential equation the following two equations are true:
 
-rf* b=K/I (2) and |rf+b|=B/I (3). Since I that corresponds to the segment's moment of inertia is known the parameters K and B can be determined uniquely.
+rf* b=K/I (2) and |rf+b|=B/I (3). Since I corresponds to the segment's moment of inertia is known the parameters K and B can be determined uniquely.
 
 # Underdamped case
 
