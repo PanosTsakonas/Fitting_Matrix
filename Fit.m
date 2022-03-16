@@ -6,6 +6,15 @@ close all;
 %Set the sampling frequency of the motion capture system
 fs=200;
 
+%Specify the number of frames you want for flexion of PIP and MCP joints. 
+n=50;
+
+%Specify frames for DIP joint flexion
+n3_1=40;
+
+%Specify the number of frames you want for abduction
+nab=130;
+
 %Uncomment the following when I am working from my Laptop
 I=importfile("%%%% Specify the directory of the template.xlsx %%%","");
 
@@ -36,14 +45,6 @@ th2=th2.*pi/180;
 th3=th3.*pi/180;
 tha=tha.*pi/180;
 
-%Specify the number of frames you want for flexion of PIP and MCP joints. 
-n=50;
-
-%Specify frames for DIP joint flexion
-n3_1=40;
-
-%Specify the number of frames you want for abduction
-nab=130;
 
 %Time is the same for flexion trials starting from 0 and ends after n frames
 t=zeros(1,n);
