@@ -11,44 +11,49 @@ The data required for this code to work are the free response data of each indiv
 
 # Structural Identifiability
 
-An important aspect of experiment design is its structural identifiability. In lay terms, structural identifiability determines whether the parameters of the system are uniquely identified by the specified input-output relationship. The structural identifiability of the system has been explored using the Laplace transform approach as is shown in the pdf document. The free response of the system which characterises the movement of interest is not structurally globally identifiable. That means that there is no adequate information to determine all parameters uniquely, and an a-priori knowledge of at least one of them is essential to uniquely identify the rest. One of the core assumptions of the model which is the cylindrical approximation of the digits is used to determine the moment of inertia of the digits and tha value is being used to identify the remaining parameters B and K. Next the 3 distinct cases of a 2nd order differential equation and thier associated parameter estimation are shown. 
+An important aspect of experiment design is its structural identifiability. In lay terms, structural identifiability determines whether the parameters of the system are uniquely identified by the specified input-output relationship. The structural identifiability of the system has been explored using the Laplace transform approach as is shown in the pdf document. The free response of the system which characterises the movement of interest is not structurally globally identifiable. That means that there is no adequate information to determine all parameters uniquely, and an a-priori knowledge of at least one of them is essential to uniquely identify the rest. One of the core assumptions of the model which is the cylindrical approximation of the digits is used to determine the moment of inertia of the digits and that value is being used to identify the remaining parameters B and K. Next the 3 distinct cases of a 2nd order differential equation and their associated parameter estimation are shown. 
 
 # Overdamped case
 
-In the overdamped case the general solution of the linear 2nd order differential equation is a sum of two exponentials. One is considered to be the slow moving exponential and the other one is the fast moving one. If the system is overdamped the fast moving exponential would reach its steady state within a few microseconds, the data are fitted to a single exponential. By estimating the coefficient of the slow moving exponential then the following equations are used to determine the parameters K and B.
+In the overdamped case the general solution of the linear 2nd order differential equation is a sum of two exponentials. One is considered to be the slow moving exponential and the other one is the fast moving one. If the system is overdamped the fast moving exponential would reach its steady state within a few microseconds. For that reason, the data are fitted to a single exponential. By estimating the coefficient of the slow moving exponential then the following equations are used to determine the parameters K and B.
 
 Let the fitted equation to the data be y_fit(t)=a+c* exp(-b* t)
 
 Then the slow moving coefficient is b. The c coefficient is determined from solving the differential equation as
 
 c=rf* (θeq-θ0)/(b-rf) (1)
-where θeq and θ0 are the equilibrium and initial angle of the spring component. Since all the parameters are known the fast moving exponential coefficient can be determined from (1).
+where θeq and θ0 are the equilibrium and initial angle of the spring component. Since all the parameters are known the fast moving exponential coefficient (rf) can be determined from (1).
 
-Once rf is known then the parameters K and B can be determined. From the characteristic polynomial of the differential equation the following two equations are true:
+Once rf is known then the parameters K and B can be determined. From the characteristic polynomial of the differential equation, the following two equations are true:
 
-rf* b=K/I (2) and |rf+b|=B/I (3). Since I corresponds to the segment's moment of inertia is known the parameters K and B can be determined uniquely.
+rf* b=K/I (2) and 
+|rf+b|=B/I (3). 
+
+Since I corresponds to the segment's moment of inertia it is a known value and the parameters K and B can be determined uniquely.
 
 # Underdamped case
 
-For the underdamped damped case the equation that fits the data is yfit(t)=a+c* exp(-b* t)*(d* sin(ω* t)+cos(ω* t)). Solving symbolically the differential equation the parameters b and ω are known and the B,K can determined as follows:
+For the underdamped damped case the equation that fits the data is yfit(t)=a+c* exp(-b* t)*(d* sin(ω* t)+cos(ω* t)). The parameters b and ω are known from fitting the data to yfit(t). Solving symbolically the differential equation, the next two equations relate the fitted parameters to B,K as follows:
 
 b=B/(2* I) (4)
 
 ω=sqrt(4* K* I-B^2)/(2* I) (5)
 
-Knowing the coefficients b and ω from fitting the data the B and K parameters can be obtained by solving equations 4 and 5 respectivelly.
+Solving equations 4 and 5 respectivelly determines the parameters B and K.
 
 # Critically damped case
 
-The equation fitting the critically damped case is yfit(t)=a+c* exp(-b *t)*(1+b* t). Solving symbolically the 2nd order differential equation the parameter b is known and the parameters K and B are determined as follows:
+The equation fitting the critically damped case data is yfit(t)=a+c* exp(-b *t)*(1+b* t). The parameter b is known from fitting the data to yfit(t). Solving symbolically the 2nd order differential equation, the next two equations relate the fitted parameters to B,K as follows:
 
 b=B/(2* I) (6)
 
 B^2-4*K* I=0 (7)
 
+Solving equations 6 and 7 respectivelly determines the parameters B and K.
+
 # How the code works
 
-For the code to work the matlab files found in the repository are important alongside the Template.xlsx file. Download the 2 MATLAB files and and place them in the MATLAB directory. Download and fill the Template.xlsx file. Add in the Fit.m code the directory where you Template.xlsx file is located. Change the sampling frequency fs to correspond to the sampling frequency of your system. 
+For the code to work the matlab files found in the repository are required alongside the Template.xlsx file. Download the two MATLAB files and place them in the MATLAB directory. Download and fill the Template.xlsx file. Add in the Fit.m code the directory where your Template.xlsx file is located. Change the sampling frequency fs to correspond to the sampling frequency of your system. 
 
 Next you have to specify how many frames you are interested in looking for fitting the data. Typically I have used somewhere between 50 and 60 frames for mcp pip and dip and 100-120 for the abd. These are specified in the code after the sampling frequency fs.
 
@@ -56,7 +61,7 @@ n -> mcp and pip frames
 nab -> abduction frames
 n3_1 -> dip frames
 
-Running the code you will be asked to input the number of the digit you are working with. 1 corresponds to the thumb, 2 corresponds to the index finger, 3 to middle, 4 to ring and 5 to little. You have to import manualy the angular data **IN DEGREES** for the segments of each digit as:
+Running the code you will be asked to input the number of the digit you are working with. 1 corresponds to the thumb, 2 corresponds to the index finger, 3 to middle, 4 to ring and 5 to little. You have to import manualy the angular data collected from the motion capture laboratory **IN DEGREES** for the segments of each digit you are working on as:
 
 dip -> for the most distal segment
 pip -> for the middle segment
@@ -67,7 +72,7 @@ For the thumb its quite hard to get data for flexion/extension of its carpal bon
 
 Angular data of mcp, pip and dip are filtered using a 4th order low pass Butterworth filter with a cut off frequency of 20 Hz. Abduction angular data are filtered using a 4th order low pass Butterworth filter with a cut off frequency of 5 Hz. The interested reader is refered to the following paper: "https://www.researchgate.net/publication/247159959_Filtering_Motion_Capture_Data_for_Real-Time_Applications".
 
-After filtering the data the code tries to determine the peaks of the signal in order to start the fitting process. **This is the most important part of the code and it may result in errors if not done properly**. The MATLAB function findpeaks is used on the filtered signal. For the mcp pip and dip angles you have to manually add the 'MINPEAKPROMINENCE' value. Make sure that the results you get correspond to the actual peaks of the signal. For the abduction movement its a bit trickier. For all the digits except the middle one, I have moved all digits towards the middle of the palm and then released the digit to return to its steady state. That means that the signal I had to fit started from a lower peak and the steady state was the highest peak of the signal. So for these digits the minus angular data are used to find the peaks. For the middle digit abduction the 'MINPEAKPROMINENCE' is used instead similar to the mcp pip and dip joints. **To avoid any errors I would suggest you run the code once and plot the findpeaks function from the code. Check visually that the peaks of the signal are the ones that correspond to the movement of the segments and then proceed**. Once you have identified the peaks, manually enter the angular data for the digit you are working, then you are ready to run the code. Except for the mcp joint that showed an oscillatory behaviour from the unfiltered data pip, dip and abd angular data are fitted for all 3 cases (underdamped, critically damped and overdamped). **The fit that has the lowest RMSE value is chosen.** K and B parameters are stored into matrices for each segment and the mean values alongside their standard deviation are shown at the end. Alongside the mean spring and damper constant values for each segment the damping ratios are also displayed at the end alongside their standard deviation for each segment.
+After filtering the data the code tries to determine the peaks of the signal in order to start the fitting process. **This is the most important part of the code and it may result in errors if not done properly**. The MATLAB function findpeaks is used on the filtered signal. For the mcp pip and dip angles you have to manually add the 'MINPEAKPROMINENCE' value. Make sure that the results you get correspond to the actual peaks of the signal. For the abduction movement its a bit trickier. For all the digits except the middle one, I have moved them towards the middle of the palm and then released the digit to return to its steady state. That means that the signal I had to fit started from the lowest peak and the steady state was the highest peak of the signal. So for these digits the minus angular data are used to find the peaks. For the middle digit abduction the 'MINPEAKPROMINENCE' is used instead similarly to the mcp pip and dip joints. **To avoid any errors I would suggest you run the code once and plot the findpeaks function from the code. Check visually that the peaks of the signal are the ones that correspond to the movement of each segment and then proceed**. Once you have identified the peaks, then you are ready to run the code. Except for the mcp joint that showed an oscillatory behaviour from the unfiltered data pip, dip and abd angular data are fitted for all 3 cases (underdamped, critically damped and overdamped). **The fit that has the lowest RMSE value is chosen.** K, B and damping ratio parameters, for each segment, are stored into matrices and the mean values alongside their standard deviation are shown at the end. 
 
 For the dip data an extra filtering procedure has been added. It has been oberved that filtering the dip angular data at 20 Hz heavily distorted the signal. So the following code has been added. Using the obw function of MATLAB it computes 99% of the occupied bandwidth of the signal between the peak determined from filtering the data at 20 Hz up until 2 times the total frame count you specified for the dip segment. Then it checks if the occupied bandwidth is greater than 20 Hz. If that's the case, it uses that value to filter the original dip data and determines the new peak. For the dip joint if the obw function is used as the cut off frequency to filter the data, in the respective plot, you will get the cut off frequency in Hz used in the filter.
 
