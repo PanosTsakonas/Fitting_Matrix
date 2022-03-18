@@ -30,7 +30,9 @@ Ia=I.data(27+in,7);
 %The 20 Hz frequency was taken from " Biodynamic modeling,
 %system identiﬁcation, and variability of multi-ﬁnger movements"
 [b1,a1]=butter(4,20/fs,'low');
+if in~=1
 th1=filtfilt(b1,a1,mcp);
+end
 th2=filtfilt(b1,a1,pip);
 th3=filtfilt(b1,a1,dip);
 
@@ -40,10 +42,13 @@ th3=filtfilt(b1,a1,dip);
 [b,a]=butter(4,5/fs,'low');
 tha=filtfilt(b,a,abd);
 
+if in~=1
 th1=th1.*pi/180;
+end
 th2=th2.*pi/180;
 th3=th3.*pi/180;
 tha=tha.*pi/180;
+
 
 
 %Time is the same for flexion trials starting from 0 and ends after n frames
@@ -63,16 +68,21 @@ ta=zeros(1,nab);
 for i=2:nab
     ta(i)=ta(i-1)+1/fs;
 end
-%Identify the peaks of the signals. This is quite important to identify otherwise the rest of the code will not give correct values.
+
+%Identify the peaks of the signals
+if in~=1
 [p1,n1]=findpeaks(th1,'MINPEAKPROMINENCE',4*pi/180);
+else
+    n1=1;
+end
 [p2,n2]=findpeaks(th2,'MINPEAKPROMINENCE',10*pi/180);
 [p3,n3]=findpeaks(th3,'MINPEAKPROMINENCE',13*pi/180);
-
 if in==3
 [pa,na]=findpeaks(tha,'MINPEAKPROMINENCE',0.2*pi/180);
 else
 [pa,na]=findpeaks(-tha,'MINPEAKWIDTH',15);
- end
+end
+
 
 %fitting equations
 fitfun1=fittype(@(a,b,c,x) a+c.*exp(-b.*x)); %Overdamped
@@ -165,8 +175,8 @@ if getappdata(f,'canceling')
 end
 
 %Starting point for underdamped case
-x0=[th3(n3(j)+n-1) 30 th3(n3(j))-th3(n3(j)+n3_1-1) 0.2 20];
-x01=[th3(n3(j)+n-1) 30 th3(n3(j))-th3(n3(j)+n3_1-1)];
+x0=[th3(n3(j)+n3_1-1) 30 th3(n3(j))-th3(n3(j)+n3_1-1) 0.2 20];
+x01=[th3(n3(j)+n3_1-1) 30 th3(n3(j))-th3(n3(j)+n3_1-1)];
 [Fit,GoF]=fit(transpose(t3),th3(n3(j):n3(j)+n3_1-1),fitfun,'MaxFunEvals',10^6,'MaxIter',10^6,'StartPoint',x0,'ToLFun',10^-8);
 [Fit1,GoF1]=fit(transpose(t3),th3(n3(j):n3(j)+n3_1-1),fitfun1,'MaxFunEvals',10^6,'MaxIter',10^6,'StartPoint',x01,'ToLFun',10^-8);
 [Fit2,GoF2]=fit(transpose(t3),th3(n3(j):n3(j)+n3_1-1),fitfun2,'MaxFunEvals',10^6,'MaxIter',10^6,'StartPoint',x01,'ToLFun',10^-8);
