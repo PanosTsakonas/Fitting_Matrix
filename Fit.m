@@ -115,7 +115,7 @@ Ypip=zeros(n,length(n2));
 Ydip=zeros(n3_1,length(n3));
 Ya=zeros(nab,length(na));
 
-
+try
 %If you are working on the thumb
 if in==1
 
@@ -675,4 +675,9 @@ disp("Dampring ratio of PIP joint: "+mean(zpip)+" +/- "+std(zpip));
 disp("Dampring ratio of DIP joint: "+mean(zdip)+" +/- "+std(zdip));
 disp("Dampring ratio of abduction: "+mean(za)+" +/- "+std(za));
 
+end
+
+catch ME
+delete(f);
+rethrow(ME)
 end
