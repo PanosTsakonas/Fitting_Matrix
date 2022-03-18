@@ -7,10 +7,14 @@ close all;
 fs=200;
 
 %Specify the number of frames you want for flexion of PIP and MCP joints. 
-n=50;
+n=60;
 
 %Specify frames for DIP joint flexion
-n3_1=40;
+if in==1
+    n3_1=n;
+else
+n3_1=50;
+end
 
 %Specify the number of frames you want for abduction
 nab=130;
