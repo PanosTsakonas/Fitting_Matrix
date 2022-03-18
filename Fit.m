@@ -6,6 +6,9 @@ close all;
 %Set the sampling frequency of the motion capture system
 fs=200;
 
+in=input("Specify the digit you are working on: ");
+%1 for thumb, 2 for index etc.
+
 %Specify the number of frames you want for flexion of PIP and MCP joints. 
 n=60;
 
@@ -21,9 +24,6 @@ nab=130;
 
 %Uncomment the following when I am working from my Laptop
 I=importfile("%%%% Specify the directory of the template.xlsx %%%","");
-
-in=input("Specify the digit you are working on: ");
-%1 for thumb, 2 for index etc.
 
 Imcp=I.data(27+in,4);
 Ipip=I.data(27+in,5);
