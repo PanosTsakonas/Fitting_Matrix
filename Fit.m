@@ -592,8 +592,8 @@ if getappdata(f,'canceling')
     break
 end
 %Starting point for underdamped case
-x0=[tha(na(m)+nab-1) 20 tha(na(m))-tha(na(m)+nab-1) 0.2 40];
-x01=[tha(na(m)+nab-1) 20 tha(na(m))-tha(na(m)+nab-1)];
+x0=[tha(na(m)+nab-1) 5 tha(na(m))-tha(na(m)+nab-1) 0.2 2];
+x01=[tha(na(m)+nab-1) 5 tha(na(m))-tha(na(m)+nab-1)];
 [Fit,GoF]=fit(transpose(ta),tha(na(m):na(m)+nab-1),fitfun,'MaxFunEvals',10^6,'MaxIter',10^6,'StartPoint',x0,'ToLFun',10^-8);
 [Fit1,GoF1]=fit(transpose(ta),tha(na(m):na(m)+nab-1),fitfun1,'MaxFunEvals',10^6,'MaxIter',10^6,'StartPoint',x01,'ToLFun',10^-8);
 [Fit2,GoF2]=fit(transpose(ta),tha(na(m):na(m)+nab-1),fitfun2,'MaxFunEvals',10^6,'MaxIter',10^6,'StartPoint',x01,'ToLFun',10^-8);
