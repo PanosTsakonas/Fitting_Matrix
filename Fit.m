@@ -9,8 +9,8 @@ Par=input("Give the number of the participant you want to examine: ");
 %Set the sampling frequency of the motion capture system
 fs=150;
 
-%Add the repository of the Digit Weights.xlsx
-%I=importfile("C:\Users\.....................\Digit Weights\P_"+Par+".xlsx","");
+%Add the repository of the Template.xlsx
+%I=importfile("C:\Users\.....................\Template".xlsx","");
 
 
 in=input("Specify the digit you are working on: ");
