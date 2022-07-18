@@ -9,6 +9,9 @@ Par=input("Give the number of the participant you want to examine: ");
 %Set the sampling frequency of the motion capture system
 fs=150;
 
+%Nyquist frequency
+fn=fs/2;
+
 %Add the repository of the Template_Hand_Mass_and_Moments_of_Inertia.xlsx
 I=importfile("C:\Users\.....................\Template_Hand_Mass_and_Moments_of_Inertia".xlsx","");
 
@@ -37,8 +40,8 @@ end
 
 %The 20 Hz frequency was taken from " Biodynamic modeling,
 %system identiﬁcation, and variability of multi-ﬁnger movements"
-[b1,a1]=butter(4,20/fs,'low');
-%[bb,aa]=butter(4,15/fs,'low');
+[b1,a1]=butter(4,12/fn,'low');
+%[bb,aa]=butter(4,10/fn,'low');
 if in~=1
 th1=filtfilt(b1,a1,mcp);
 end
