@@ -72,7 +72,7 @@ end
 
 t3=zeros(1,n3_1);
 for i=2:n3_1
-    t3(i)=t(i-1)+1/fs;
+    t3(i)=t3(i-1)+1/fs;
 end
 
 %Time for abduction trials
