@@ -83,3 +83,42 @@ For the thumb since there are no data for the CMC joint the matrix Kmcp/Bmcp cor
 1) Errors in determining the K and B values because of wrong peak selection. It is quite important for the user to visually verify that the peaks chosen by the code are the ones that correspond to the signal you are trying to fit.
 2) Index might exceed the length of the matrix. That error would correspond to the final frame of each signal where the total length of the final angular data exceeds the number of indices of its corresponding matrix. For example, assume that mcp has a length of 1000 indices. You run the code and it determines correctly that the last peak of the signal is at index 960. If you have specified that the signal should have 50 frames then the signal you are trying to fit should be between indices 960 and 1009 of the mcp data. As you can understand since the length of the mcp is only 1000 there are no data between indices 1001 and 1009. Try to reduce the number of frames or change the respective code to not include the last peak.
 
+# Power Spectrum and Hilbert-Huang transforms of a selected trial
+
+The next plots will help to visualise the choice for the cut-off frequencies for the data.
+
+Abduction data Hilbrt-Huang spectrum
+
+![P_9_Abduction_Ring_Hilbert_Spectrum](https://user-images.githubusercontent.com/64256997/180428657-71c9b997-cbea-4545-b216-84b751c3e610.jpg)
+
+Abduction data power spectrum
+
+![P_9_Abduction_Ring_power_Spectrum](https://user-images.githubusercontent.com/64256997/180428825-9291183a-c82e-4675-878d-331e47176e7d.jpg)
+
+MCP data Hilbert-Huang spectrum
+
+![P_9_ring_MCP_Hilbert_Spectrum](https://user-images.githubusercontent.com/64256997/180428887-e31d4e8d-08cf-4711-bf15-932845403ad0.jpg)
+
+MCP data power spectrum
+
+![P_9_ring_MCP_Spectrum](https://user-images.githubusercontent.com/64256997/180428938-d843000b-819b-42a7-8dbd-0ab32aa1a6b3.jpg)
+
+
+PIP data Hilbert-Huang spectrum
+
+![P_9_ring_PIP_Hilbert_spectrum](https://user-images.githubusercontent.com/64256997/180428991-71019a75-5892-4b20-a01d-8b8584c006b3.jpg)
+
+
+PIP data power spectrum
+
+![P_9_Ring_PIP_spectrum](https://user-images.githubusercontent.com/64256997/180429029-1504006f-edf0-4ef0-96ed-cebafe170550.jpg)
+
+
+DIP data Hilbert-Huang spectrum
+
+![P_9_ring_DIP_Hilbert_spectrum](https://user-images.githubusercontent.com/64256997/180429091-30ad77b1-9728-477e-99ed-fb14f2bb5aa4.jpg)
+
+
+DIP data power spectrum
+
+![P_9_ring_DIP_spectrum](https://user-images.githubusercontent.com/64256997/180429157-68afb935-ec2b-4716-b300-d8974d715a19.jpg)
