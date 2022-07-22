@@ -7,7 +7,8 @@ D=["Thumb","Index","Middle","Ring","Little"];
 Par=input("Give the number of the participant you want to examine: ");
 
 %Set the sampling frequency of the motion capture system
-fs=150;
+
+fs=.......................;
 
 %Nyquist frequency
 fn=fs/2;
@@ -38,22 +39,17 @@ n3_1=55;
 end
 
 
-%The 20 Hz frequency was taken from " Biodynamic modeling,
-%system identiﬁcation, and variability of multi-ﬁnger movements"
-[b1,a1]=butter(4,12/fn,'low');
-%[bb,aa]=butter(4,10/fn,'low');
+
+[b1,a1]=butter(4,15/fn,'low');
+[bb,aa]=butter(4,12/fn,'low');
 if in~=1
 th1=filtfilt(b1,a1,mcp);
 end
 th2=filtfilt(b1,a1,pip);
-th3=filtfilt(b1,a1,dip);
+th3=filtfilt(bb,aa,dip);
+tha=filtfilt(bb,aa,abd);
 
-%The 5 Hz is taken as the minimum cut off frequency from 
-%"Filtering Motion Capture Data for Real-Time Applications"
-
-[b,a]=butter(4,5/fs,'low');
-tha=filtfilt(b,a,abd);
-
+%Convert the angles from degrees to radians
 if in~=1
 th1=th1.*pi/180;
 end
@@ -105,7 +101,7 @@ na=na(1:end-1);
 fitfun1=fittype(@(a,b,c,x) a+c.*exp(-b.*x)); %Overdamped
 fitfun2=fittype(@(a,b,c,x) a+c.*exp(-b.*x).*(1+b.*x)); %Critically damped
 fitfun=fittype(@(a,b,c,d,w,x) a+c.*exp(-b.*x).*(d.*sin(w.*x)+cos(w.*x)));%Underdamped
-fitfuna=fittype(@(a,b,c,d,w,x) a+c.*exp(-b.*x).*cos(w.*x)+d.*exp(-b.*x).*sin(w.*x));
+
 %Set the tables for the parameters
 Bmcp=zeros(1,length(n1));
 Bpip=zeros(1,length(n2));
@@ -537,30 +533,6 @@ waitbar(k/length(n3),f,sprintf('Distal segment data fitting at %d%s',floor((k/le
 if getappdata(f,'canceling')
     break
 end
-
-%{
-if (obw(dip(n3(k):n3(k)+2*n3_1),200)>20)
-[bm,am]=butter(4,obw(dip(n3(k):n3(k)+2*n3_1),200)/fs,'low');
-th3f=filtfilt(bm,am,dip(n3(k):n3(k)+2*n3_1)).*pi/180;
-[pk,nk]=findpeaks(th3f);
-
-if (isempty(nk) || nk(1)>=10)
-    nk=[1 0];
-end
-if ~ismatrix(nk)
-    nk=[nk 0];
-end
-wn=obw(dip(n3(k):n3(k)+2*n3_1),200);
-
-%Starting point for underdamped case
-x0=[th3f(nk(1)+n3_1-1) 20 th3f(nk(1))-th3f(nk(1)+n3_1-1) 0.2 30];
-x01=[th3f(nk(1)+n3_1-1) 20 th3f(nk(1))-th3f(nk(1)+n3_1-1)];
-[Fit,GoF]=fit(transpose(t3),th3f(nk(1):nk(1)+n3_1-1),fitfun,'MaxFunEvals',10^6,'MaxIter',10^6,'StartPoint',x0,'ToLFun',10^-8);
-[Fit1,GoF1]=fit(transpose(t3),th3f(nk(1):nk(1)+n3_1-1),fitfun1,'MaxFunEvals',10^6,'MaxIter',10^6,'StartPoint',x01,'ToLFun',10^-8);
-[Fit2,GoF2]=fit(transpose(t3),th3f(nk(1):nk(1)+n3_1-1),fitfun2,'MaxFunEvals',10^6,'MaxIter',10^6,'StartPoint',x01,'ToLFun',10^-8);
-
-else 
-%}
     nk=[n3(k) 0];
 
     wn=20;
@@ -570,7 +542,7 @@ x01=[th3(nk(1)+n3_1-1) 20 th3(nk(1))-th3(nk(1)+n3_1-1)];
 [Fit,GoF]=fit(transpose(t3),th3(nk(1):nk(1)+n3_1-1),fitfun,'MaxFunEvals',10^6,'MaxIter',10^6,'StartPoint',x0,'ToLFun',10^-8);
 [Fit1,GoF1]=fit(transpose(t3),th3(nk(1):nk(1)+n3_1-1),fitfun1,'MaxFunEvals',10^6,'MaxIter',10^6,'StartPoint',x01,'ToLFun',10^-8);
 [Fit2,GoF2]=fit(transpose(t3),th3(nk(1):nk(1)+n3_1-1),fitfun2,'MaxFunEvals',10^6,'MaxIter',10^6,'StartPoint',x01,'ToLFun',10^-8);
-%end
+
 
 
 
@@ -587,12 +559,9 @@ Kdip(k)=eval(solve(eqn,K));
 theqdip(k)=coef(1);
 th0dip(k)=coef(3)+theqdip(k);
 figure(j+i+k-2)
-if wn>20
-    plot(t3,Fit(t3).*180/pi,t3,th3f(nk(1):nk(1)+n3_1-1).*180/pi);
-else
+
 plot(t3,Fit(t3).*180/pi,t3,th3(nk(1):nk(1)+n3_1-1).*180/pi);
-end
-legend("Fitted curve with cut off "+wn+" Hz","Data from index "+nk(1));
+legend("Fitted curve","Data from index "+nk(1));
 xlabel("Time (s)");
 ylabel("Angle (degrees)");
 title("DIP joint fit with RMSE: "+(GoF.rmse*180/pi)+" and R^2: "+GoF.rsquare);
@@ -608,12 +577,8 @@ Bdip(k)=abs(rf+b)*Idip;
 theqdip(k)=coef(1);
 th0pip(k)=th3(nk(1));
 figure(j+i+k-2)
-if wn>20
-    plot(t3,Fit(t3).*180/pi,t3,th3f(nk(1):nk(1)+n3_1-1).*180/pi);
-else
 plot(t3,Fit(t3).*180/pi,t3,th3(nk(1):nk(1)+n3_1-1).*180/pi);
-end
-legend("Fitted curve with cut off "+wn+" Hz","Data from index "+nk(1));
+legend("Fitted curve","Data from index "+nk(1));
 xlabel("Time (s)");
 ylabel("Angle (degrees)");
 title("DIP joint fit with RMSE: "+(GoF1.rmse*180/pi)+" and R^2: "+GoF1.rsquare);
@@ -628,12 +593,9 @@ else
     theqdip(k)=coef(1);
 th0dip(k)=th3(n3(k));
 figure(j+i+k-2)
-if wn>20
-    plot(t3,Fit(t3).*180/pi,t3,th3f(nk(1):nk(1)+n3_1-1).*180/pi);
-else
+
 plot(t3,Fit(t3).*180/pi,t3,th3(nk(1):nk(1)+n3_1-1).*180/pi);
-end
-legend("Fitted curve with cut off "+wn+" Hz","Data from index "+nk(1));
+legend("Fitted curve","Data from index "+nk(1));
 xlabel("Time (s)");
 ylabel("Angle (degrees)");
 title("DIP joint fit with RMSE: "+(GoF2.rmse*180/pi)+" and R^2: "+GoF2.rsquare);
@@ -669,7 +631,7 @@ if getappdata(f,'canceling')
     break
 end
 
-x0=[tha(na(m)+nab-1) 3 tha(na(m))-tha(na(m)+nab-1) 0.2 7];
+x0=[tha(na(m)+nab-1) 15 tha(na(m))-tha(na(m)+nab-1) 0.2 25];
 x01=[tha(na(m)+nab-1) 10 tha(na(m))-tha(na(m)+nab-1)];
 [Fit,GoF]=fit(transpose(ta),tha(na(m):na(m)+nab-1),fitfun,'MaxFunEvals',10^6,'MaxIter',10^6,'StartPoint',x0,'ToLFun',10^-8);
 [Fit1,GoF1]=fit(transpose(ta),tha(na(m):na(m)+nab-1),fitfun1,'MaxFunEvals',10^6,'MaxIter',10^6,'StartPoint',x01,'ToLFun',10^-8);
