@@ -1,4 +1,4 @@
-# Fitting_MoCap_Data
+# Fitting MoCap Data
 
 The code posted here tries to determine the values of the linear 2nd order differential equation approximation of the equations of motion derived from the Lagrangian system. The Lagrangian
 system, describes the proximal, middle and distal phalanges of the digits from the level of the metacarpophalangeal joints (Index through little finger) and from the level of the carpometacarpal joint
