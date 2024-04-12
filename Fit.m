@@ -97,7 +97,7 @@ na=na(1:end-1);
  
 
 %Specify the fitting equations
-fitfun1=fittype(@(a,b,c,x) a+c.*exp(-b.*x)); %Overdamped
+fitfun1=fittype(@(a,b,c,x) a+c.*exp(-b.*x)+d.*exp(-f.*x)); %Overdamped
 fitfun2=fittype(@(a,b,c,x) a+c.*exp(-b.*x).*(1+b.*x)); %Critically damped
 fitfun=fittype(@(a,b,c,d,w,x) a+c.*exp(-b.*x).*(d.*sin(w.*x)+cos(w.*x)));%Underdamped
 
