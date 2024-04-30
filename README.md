@@ -17,7 +17,7 @@ An important aspect of experiment design is its structural identifiability. In l
 
 In the overdamped case the general solution of the linear 2nd order differential equation is a sum of two exponentials.
 
-Let the fitted equation to the data be y_fit(t)=a+c* exp(-b* t)+d*exp(-f*t)
+Let the fitted equation to the data be y_fit(t)=a+c* exp(-b* t)+d* exp(-f*t)
 
 Then the slow moving coefficient is b. The c coefficient is determined from solving the differential equation as
 
