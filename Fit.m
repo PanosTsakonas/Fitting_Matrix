@@ -97,7 +97,7 @@ na=na(1:end-1);
  
 
 %Specify the fitting equations
-fitfun1=fittype(@(a,b,c,x) a+c.*exp(-b.*x)+d.*exp(-f.*x)); %Overdamped
+fitfun1=fittype(@(a,b,c,d,f,x) a+c.*exp(-b.*x)+d.*exp(-f.*x)); %Overdamped
 fitfun2=fittype(@(a,b,c,x) a+c.*exp(-b.*x).*(1+b.*x)); %Critically damped
 fitfun=fittype(@(a,b,c,d,w,x) a+c.*exp(-b.*x).*(d.*sin(w.*x)+cos(w.*x)));%Underdamped
 
@@ -187,8 +187,9 @@ end
 %Starting point for underdamped case
 x0=[th3(n3(j)+n3_1-1) 30 th3(n3(j))-th3(n3(j)+n3_1-1) 0.2 20];
 x01=[th3(n3(j)+n3_1-1) 30 th3(n3(j))-th3(n3(j)+n3_1-1)];
+x02=[th3(n3(j)+n3_1-1) 30 th3(n3(j))-th3(n3(j)+n3_1-1) 30 30];
 [Fit,GoF]=fit(transpose(t3),th3(n3(j):n3(j)+n3_1-1),fitfun,'MaxFunEvals',10^6,'MaxIter',10^6,'StartPoint',x0,'ToLFun',10^-8);
-[Fit1,GoF1]=fit(transpose(t3),th3(n3(j):n3(j)+n3_1-1),fitfun1,'MaxFunEvals',10^6,'MaxIter',10^6,'StartPoint',x01,'ToLFun',10^-8);
+[Fit1,GoF1]=fit(transpose(t3),th3(n3(j):n3(j)+n3_1-1),fitfun1,'MaxFunEvals',10^6,'MaxIter',10^6,'StartPoint',x02,'ToLFun',10^-8);
 [Fit2,GoF2]=fit(transpose(t3),th3(n3(j):n3(j)+n3_1-1),fitfun2,'MaxFunEvals',10^6,'MaxIter',10^6,'StartPoint',x01,'ToLFun',10^-8);
 GoF_rmse=min([GoF.rmse GoF1.rmse GoF2.rmse]);
 if GoF_rmse==GoF.rmse
@@ -269,8 +270,9 @@ end
 %Starting point for underdamped case
 x0=[tha(na(k)+nab-1) 20 tha(na(k))-tha(na(k)+nab-1) 0.2 10];
 x01=[tha(na(k)+nab-1) 20 tha(na(k))-tha(na(k)+nab-1)];
+x02=[tha(na(k)+nab-1) 20 tha(na(k))-tha(na(k)+nab-1) 30 30];
 [Fit,GoF]=fit(transpose(ta),tha(na(k):na(k)+nab-1),fitfun,'MaxFunEvals',10^6,'MaxIter',10^6,'StartPoint',x0,'ToLFun',10^-8);
-[Fit1,GoF1]=fit(transpose(ta),tha(na(k):na(k)+nab-1),fitfun1,'MaxFunEvals',10^6,'MaxIter',10^6,'StartPoint',x01,'ToLFun',10^-8);
+[Fit1,GoF1]=fit(transpose(ta),tha(na(k):na(k)+nab-1),fitfun1,'MaxFunEvals',10^6,'MaxIter',10^6,'StartPoint',x02,'ToLFun',10^-8);
 [Fit2,GoF2]=fit(transpose(ta),tha(na(k):na(k)+nab-1),fitfun2,'MaxFunEvals',10^6,'MaxIter',10^6,'StartPoint',x01,'ToLFun',10^-8);
 GoF_rmse=min([GoF.rmse GoF1.rmse GoF2.rmse]);
 
@@ -450,8 +452,9 @@ end
 %Starting point for underdamped case
 x0=[th2(n2(j)+n-1) 30 th2(n2(j))-th2(n2(j)+n-1) 0.2 20];
 x01=[th2(n2(j)+n-1) 30 th2(n2(j))-th2(n2(j)+n-1)];
+x02=[th2(n2(j)+n-1) 30 th2(n2(j))-th2(n2(j)+n-1) 30 30];
 [Fit,GoF]=fit(transpose(t),th2(n2(j):n2(j)+n-1),fitfun,'MaxFunEvals',10^6,'MaxIter',10^6,'StartPoint',x0,'ToLFun',10^-8);
-[Fit1,GoF1]=fit(transpose(t),th2(n2(j):n2(j)+n-1),fitfun1,'MaxFunEvals',10^6,'MaxIter',10^6,'StartPoint',x01,'ToLFun',10^-8);
+[Fit1,GoF1]=fit(transpose(t),th2(n2(j):n2(j)+n-1),fitfun1,'MaxFunEvals',10^6,'MaxIter',10^6,'StartPoint',x02,'ToLFun',10^-8);
 [Fit2,GoF2]=fit(transpose(t),th2(n2(j):n2(j)+n-1),fitfun2,'MaxFunEvals',10^6,'MaxIter',10^6,'StartPoint',x01,'ToLFun',10^-8);
 GoF_rmse=min([GoF.rmse GoF1.rmse GoF2.rmse]);
 if GoF_rmse==GoF.rmse
@@ -538,8 +541,9 @@ end
     %Starting point for underdamped case
 x0=[th3(nk(1)+n3_1-1) 20 th3(nk(1))-th3(nk(1)+n3_1-1) 0.2 30];
 x01=[th3(nk(1)+n3_1-1) 20 th3(nk(1))-th3(nk(1)+n3_1-1)];
+x02=[th3(nk(1)+n3_1-1) 20 th3(nk(1))-th3(nk(1)+n3_1-1) 30 30];
 [Fit,GoF]=fit(transpose(t3),th3(nk(1):nk(1)+n3_1-1),fitfun,'MaxFunEvals',10^6,'MaxIter',10^6,'StartPoint',x0,'ToLFun',10^-8);
-[Fit1,GoF1]=fit(transpose(t3),th3(nk(1):nk(1)+n3_1-1),fitfun1,'MaxFunEvals',10^6,'MaxIter',10^6,'StartPoint',x01,'ToLFun',10^-8);
+[Fit1,GoF1]=fit(transpose(t3),th3(nk(1):nk(1)+n3_1-1),fitfun1,'MaxFunEvals',10^6,'MaxIter',10^6,'StartPoint',x02,'ToLFun',10^-8);
 [Fit2,GoF2]=fit(transpose(t3),th3(nk(1):nk(1)+n3_1-1),fitfun2,'MaxFunEvals',10^6,'MaxIter',10^6,'StartPoint',x01,'ToLFun',10^-8);
 
 
@@ -632,8 +636,9 @@ end
 
 x0=[tha(na(m)+nab-1) 15 tha(na(m))-tha(na(m)+nab-1) 0.2 25];
 x01=[tha(na(m)+nab-1) 10 tha(na(m))-tha(na(m)+nab-1)];
+x02=[tha(na(m)+nab-1) 10 tha(na(m))-tha(na(m)+nab-1) 30 30];
 [Fit,GoF]=fit(transpose(ta),tha(na(m):na(m)+nab-1),fitfun,'MaxFunEvals',10^6,'MaxIter',10^6,'StartPoint',x0,'ToLFun',10^-8);
-[Fit1,GoF1]=fit(transpose(ta),tha(na(m):na(m)+nab-1),fitfun1,'MaxFunEvals',10^6,'MaxIter',10^6,'StartPoint',x01,'ToLFun',10^-8);
+[Fit1,GoF1]=fit(transpose(ta),tha(na(m):na(m)+nab-1),fitfun1,'MaxFunEvals',10^6,'MaxIter',10^6,'StartPoint',x02,'ToLFun',10^-8);
 [Fit2,GoF2]=fit(transpose(ta),tha(na(m):na(m)+nab-1),fitfun2,'MaxFunEvals',10^6,'MaxIter',10^6,'StartPoint',x01,'ToLFun',10^-8);
 
 GoF_rmse=min([GoF.rmse GoF1.rmse GoF2.rmse]);
