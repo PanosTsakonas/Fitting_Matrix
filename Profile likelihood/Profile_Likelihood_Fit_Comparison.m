@@ -14,11 +14,9 @@ fs=150;
 end
 
 fn=fs/2;
-%Uncomment the following when I am working from VPN or the University computer
-%I=importfile("C:\Users\u1857308\OneDrive - University of Warwick\PhD\Hand Trials\Digit Weights\P_"+Par+".xlsx","");
 
 %Uncomment the following when I am working from my Laptop
-I=importfile("C:\Users\panos\OneDrive - University of Warwick\PhD\Hand Trials\Digit Weights\P_"+Par+".xlsx","");
+I=importfile("Load the moments of inertia from the excel file".xlsx","");
 
 in=input("Specify the digit you are working on: ");
 %1 for thumb, 2 for index etc.
@@ -98,10 +96,4 @@ end
 %Abduction Joint
 for i=1:length(na)
 [B(i,4),Bl(i,4),Bu(i,4),Km(i,4),Kml(i,4),Kmu(i,4),Bpl(i,4),Bpll(i,4),Bplu(i,4),Kpl(i,4),Kpll(i,4),Kplu(i,4)]=calculations(Ia,tim,na,i,thaf(na(i):na(i)+n-1));
-end
-
-tot=length(n1)+length(n2)+length(n3)+length(na);
-
-for i=5:5:5*tot
-    figure(i)
 end

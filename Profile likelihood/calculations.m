@@ -28,8 +28,8 @@ new_init_th1 = th(1);  % Example new value for init_th1
 new_I1 = I1;        % Example new value for I1
 new_theq = th(end);      % Example new value for theq
 
-% Read the content of the .def file
-fid = fopen('C:\Users\panos\OneDrive - University of Warwick\PhD\MATLAB Code\arFramework3\Examples\IBK_New\Models\IBK_rev.def', 'r');
+% Read the content of the .def file in the Models folder
+fid = fopen('C:\Users\...............\arFramework3\Examples\IBK_New\Models\IBK_rev.def', 'r');
 
 % Read the .def file line by line
 def_lines = {};
@@ -59,7 +59,7 @@ while ~feof(fid)
 end
 
 % Write the modified content back to the .def file
-fid = fopen('C:\Users\panos\OneDrive - University of Warwick\PhD\MATLAB Code\arFramework3\Examples\IBK_New\Models\IBK_rev.def', 'w');
+fid = fopen('C:\Users\..................\arFramework3\Examples\IBK_New\Models\IBK_rev.def', 'w');
 if fid == -1
     error('Could not open the file for writing.');
 end
@@ -67,7 +67,8 @@ fprintf(fid, '%s\n', def_lines{:});
 fclose(fid);
 
 T=table(tim,th,'VariableNames',{'time','angle'});
-dir="C:\Users\panos\OneDrive - University of Warwick\PhD\MATLAB Code\arFramework3\Examples\IBK_New\Data\";
+%Set the directory path for the Data folder
+dir="C:\Users\.................\arFramework3\Examples\IBK_New\Data\";
 fN='New_data.csv';
 % Export the table to a CSV file in the specified directory
 writetable(T, fullfile(dir, fN));
@@ -112,14 +113,14 @@ rmse=sqrt(sum((Res).^2)/length(Res));
 % arPlot;
 % Profile-Likelhood for all parameters
  arPLEInit
-%   %Set tolerances
+ %Set tolerances
  ar.ple.relchi2stepincrease(5) = 0.01;
  ar.ple.minstepsize(:) = 1e-9; % calculate profiles
  ple(1:3,100000)
-%   % plot profiles
+% plot profiles
 % plePlotMulti;
-% 
-% % plot trajectories along profiles
+
+% plot trajectories along profiles
  arPLETrajectories;
 Bpl=10^ar.ple.p(1);
 Bpll=10^ar.ple.conf_lb_point(1);
