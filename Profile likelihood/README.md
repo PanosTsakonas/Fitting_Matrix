@@ -12,4 +12,6 @@ You must specify the directories in which the Data and Models file have been cre
 
 When everything is done then the code should run with no problem. Once your data are there then the code will create the necessary excel files in the Data folder which is based on finding the peaks from the filtered data and taking the next 60 indices. It will the updae automatically the New_data.def and IBK_rev.def files automatically based on the new initial angular position, equilibrium angle, and moment of inertia. 
 
-# If you are not using a MoCap sampling frequency of 150 Hz you must change in both the IBK_rev.def and New_data.def files in the PREDICTOR section the duration of your experiment. In my case I had a sampling frequency of 150 Hz and I took 60 data point with the duration of my experiment being 0.3933. If you want more data points or have a different sampling frequency change the respective files otherwise the code will not give correct values.  
+# Important Information 
+
+If you are not using a MoCap sampling frequency of 150 Hz you must change in both the IBK_rev.def and New_data.def files in the PREDICTOR section the duration of your experiment. In my case I had a sampling frequency of 150 Hz and I took 60 data point with the duration of my experiment being 0.3933. If you want more data points or have a different sampling frequency change the respective files otherwise the code will not give correct values.  
