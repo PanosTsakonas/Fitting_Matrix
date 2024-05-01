@@ -1,5 +1,5 @@
 # Reference
-If you are going to use this code please refernce the following paper:
+If you are going to use this code please reference the following paper:
 
 Tsakonas Panagiotis, Evans Neil D., Hardwicke Joseph, and Chappell Michael J., “Parameter estimation of a model describing the human fingers,” Healthcare technology letters , pp. 1–15, 2023, doi: 10.1049/htl2.12070.
 
