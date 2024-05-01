@@ -1,3 +1,8 @@
+# Reference
+If you are going to use this code please refernce the following paper:
+
+Tsakonas Panagiotis, Evans Neil D., Hardwicke Joseph, and Chappell Michael J., “Parameter estimation of a model describing the human fingers,” Healthcare technology letters , pp. 1–15, 2023, doi: 10.1049/htl2.12070.
+
 # Fitting MoCap Data
 
 The code posted here tries to determine the values of the linear 2nd order differential equation approximation of the equations of motion derived from the Lagrangian system. The Lagrangian
