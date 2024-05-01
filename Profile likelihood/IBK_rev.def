@@ -1,0 +1,34 @@
+DESCRIPTION
+"IBK model"
+
+PREDICTOR
+t	T	"seconds"	"time"	0	    0.3933
+
+COMPARTMENTS
+
+STATES
+th1     	"rad"	"angle"		1	"angle" 1
+th2		   "rad/s"	"velocity"	1	"velocity" 0
+
+
+INPUTS
+U    C   "Nm"    torque    "0"
+I1   C   "Kg*m^2" Inertia    "0.00000243"
+theq    C   "rad"     angle    "0.2870"
+
+ODES
+"th2"
+"-K*(th1-theq)/I1-B*th2/I1+U/I1"
+
+DERIVED
+
+        
+OBSERVABLES
+angle	 C	"rad"	"angle"	0	0	"th1"
+      
+ERRORS
+angle       "sd_th1"
+
+CONDITIONS
+init_th1      "0.7896"
+init_th2       "0"
