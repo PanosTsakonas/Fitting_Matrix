@@ -1,1 +1,4 @@
-
+int main ()
+{
+print("Hello world");
+}
