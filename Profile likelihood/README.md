@@ -16,3 +16,8 @@ When everything is done then the code should run with no problem. Once your data
 # Important Information 
 
 If you are not using a MoCap sampling frequency of 150 Hz you must change in both the IBK_rev.def and New_data.def files in the PREDICTOR section the duration of your experiment. In my case I had a sampling frequency of 150 Hz and I took 60 data point with the duration of my experiment being 0.3933. If you want more data points or have a different sampling frequency change the respective files otherwise the code will not give correct values.  
+
+# Reference
+If you are going to use this code please reference the following paper:
+
+Tsakonas Panagiotis, Evans Neil D., Hardwicke Joseph, and Chappell Michael J., “Parameter estimation of a model describing the human fingers,” Healthcare technology letters , pp. 1–15, 2023, doi: 10.1049/htl2.12070.
