@@ -146,6 +146,11 @@ s={['B_{Fit}= ', num2str(round(B, 4)), ' (', num2str(round(Bl, 4)), ',', num2str
      ['B_{PLE}= ', num2str(round(Bpl, 4)), ' (', num2str(round(Bpll, 4)), ',', num2str(round(Bplu, 4)), ') Nms/rad'], ...
      ['K_{PLE}= ', num2str(round(Kpl, 4)), ' (', num2str(round(Kpll, 4)), ',', num2str(round(Kplu, 4)), ') Nm/rad']};
            annotation('textbox', [0.45, 0.55, 0.1, 0.1],'String',s,'FitBoxToText','on')
+figure
+plot(tim,(Fit(tim)-Ypl(:,1)).*180/pi);
+xlabel("Time (s)");
+ylabel("\Delta_{Fit,Profile Likelihood} (degrees)");
+title("Difference between Fit and Profile Likelihood methods for index "+n1(i1));
+legend("Difference data");
 clear Fit Fit1 Fit2 GoF GoF1 GoF2;
-
 end
