@@ -13,12 +13,8 @@ Bdip=Kmcp;
 Ka=Kmcp;
 Ba=Kmcp;
 
-GG=input("Are you working from laptop or uni pc? :",'s');
-if GG=='l'
-    FF="C:\Users\panos\OneDrive - University of Warwick\PhD\Publication\Parameter estimation of a model describing the human fingers\Supplementary material\Publication Data.xlsx";
-else
-    FF="C:\Users\u1857308\OneDrive - University of Warwick\PhD\Publication\Parameter estimation of a model describing the human fingers\Supplementary material\Publication Data.xlsx";
-end
+FF="C:\Users\.......\Publication Data.xlsx";
+
 
 
 for i=1:4
@@ -128,10 +124,7 @@ end
 Save=input("Do you want to save the figures? :",'s');
 
 if (Save=='Y' || Save=='y')
-    if GG=='l'
-        sf="C:\Users\panos\OneDrive - University of Warwick\PhD\Thesis\Chapter 6\Distribution Fit\Spring\";
-    else
-        sf="C:\Users\u1857308\OneDrive - University of Warwick\PhD\Thesis\Chapter 6\Distribution Fit\Spring\";
+        sf="C:\Users\.........\";
     end
     for i=1:len
         h=figure(i);
@@ -232,11 +225,9 @@ end
 Save=input("Do you want to save the figures? :",'s');
 
 if (Save=='Y' || Save=='y')
-    if GG=='l'
-        sf="C:\Users\panos\OneDrive - University of Warwick\PhD\Thesis\Chapter 6\Distribution Fit\Damper\";
-    else
-        sf="C:\Users\u1857308\OneDrive - University of Warwick\PhD\Thesis\Chapter 6\Distribution Fit\Damper\";
-    end
+        sf="C:\Users\........\Damper\";
+end
+    
     for i=len+1:len+len1
         h=figure(i);
         saveas(h,sf+"figure_"+i,'jpg');
