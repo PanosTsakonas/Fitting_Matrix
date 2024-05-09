@@ -24,15 +24,10 @@ In the overdamped case the general solution of the linear 2nd order differential
 
 Let the fitted equation to the data be y_fit(t)=a+c* exp(-b* t)+d* exp(-f*t)
 
-Then the slow moving coefficient is b. The c coefficient is determined from solving the differential equation as
+From the characteristic polynomial of the differential equation, the following two equations are true:
 
-c=rf* (θeq-θ0)/(b-rf) (1)
-where θeq and θ0 are the equilibrium and initial angle of the spring component. Since all the parameters are known the fast moving exponential coefficient (rf) can be determined from (1).
-
-Once rf is known then the parameters K and B can be determined. From the characteristic polynomial of the differential equation, the following two equations are true:
-
-rf* b=K/I (2) and 
-|rf+b|=B/I (3). 
+f* b=K/I (2) and 
+f+b=B/I (3). 
 
 Since I corresponds to the segment's moment of inertia it is a known value and the parameters K and B can be determined uniquely.
 
